@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "681795301103",
+    "project_id": "gestion-easy-4e879",
+    "storage_bucket": "gestion-easy-4e879.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681795301103:android:9634f2282f1a36a125b51a",
+        "android_client_info": {
+          "package_name": "com.example.easy_gestion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWddGC-KJrDC2bEi8aVEYs-KA3U8qj6p0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
