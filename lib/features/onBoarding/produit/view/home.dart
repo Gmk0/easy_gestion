@@ -1,6 +1,7 @@
 import 'package:easy_gestion/features/onBoarding/produit/controller/get_product_controller.dart';
 import 'package:easy_gestion/features/onBoarding/produit/view/add_product.dart';
 import 'package:easy_gestion/features/onBoarding/produit/view/edit_product_view.dart';
+import 'package:easy_gestion/features/transaction/controller/transaction_controller.dart';
 import 'package:easy_gestion/utils/constants/sizes.dart';
 import 'package:easy_gestion/utils/export.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,18 @@ import 'package:get/get.dart';
 
 // Assurez-vous d'importer le contrôleur Produit
 
-class HomeProduit extends StatelessWidget {
+class HomeProduit extends StatefulWidget {
   const HomeProduit({super.key});
+
+  @override
+  State<HomeProduit> createState() => _HomeProduitState();
+}
+
+class _HomeProduitState extends State<HomeProduit> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

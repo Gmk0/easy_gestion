@@ -79,18 +79,27 @@ class AddVentesController extends GetxController {
       );
 
       final produitRepository = ProduitRepository.Instance;
+
       final transactionRepo = HistoryTransactionRepository.instance;
       final produitController = ProduitController.Instance;
-      final transactionController = TransactionController.Instance;
 
       final homeController = HomeController.instance;
+
       produitRepository.updateProduitQuantity(
           produitId.text, -double.parse(quantity.text));
+
       await transactionRepo.addTransaction(transaction);
 
       await produitController.fetchProduits();
       await homeController.fetchLastTransaction();
-      transactionController.fetchAllVentes();
+
+      if (Get.isRegistered<TransactionController>()) {
+        final transactionController = TransactionController.Instance;
+        transactionController.fetchAllVentes();
+
+        // Le Controller est déjà enregistré
+        print("Le Controller est déjà créé.");
+      }
 
       //remove loader
 

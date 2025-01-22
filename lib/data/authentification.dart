@@ -1,19 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+import 'package:easy_gestion/common/widgets/loader_class.dart';
 import 'package:easy_gestion/features/auth/view/login_screen.dart';
 import 'package:easy_gestion/features/navigation/nav_screen.dart';
 import 'package:easy_gestion/features/onBoarding/view/on_boarding_screen.dart';
+import 'package:easy_gestion/model/user_model.dart';
+import 'package:easy_gestion/utils/constants/image_strings.dart';
 import 'package:easy_gestion/utils/loaders/firebase_exception.dart';
+import 'package:easy_gestion/utils/popups/full_screen_loader.dart';
 
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  Rx<UserModel> user = UserModel.empty().obs;
 
   User? get authUser => _auth.currentUser;
 
@@ -30,12 +40,9 @@ class AuthenticationRepository extends GetxController {
   screenRedirect() async {
     final user = _auth.currentUser;
     if (user != null) {
-      // Si l'utilisateur est connecté mais son e-mail n'est pas vérifié ca doit etre a true plutot
-      if (user.email != null) {
-        Get.offAll(() => const NavigationMenu());
-      } else {
-        // Si l'utilisateur est connecté et son e-mail est vérifié
-      }
+      //fetchUser();
+
+      Get.offAll(() => const NavigationMenu());
     } else {
       // Si l'utilisateur n'est pas connecté
       deviceStorage.writeIfNull('isFirsTime', true);
@@ -52,6 +59,29 @@ class AuthenticationRepository extends GetxController {
     try {
       return await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FormatException catch (e) {
+      throw TFormatException;
+    } on PlatformException catch (e) {
+      throw TPlatformException;
+    } catch (e) {
+      throw 'Une erreur est survenue';
+    }
+  }
+
+  Future<void> fetchUser() async {
+    try {
+      final userDoc =
+          await _db.collection("Users").doc(_auth.currentUser?.uid).get();
+
+      if (!userDoc.exists) {
+        throw 'Produit introuvable';
+      }
+
+      user.value = UserModel.fromSnapshot(userDoc);
     } on FirebaseAuthException catch (e) {
       throw TFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
@@ -121,8 +151,19 @@ class AuthenticationRepository extends GetxController {
   // Déconnexion de l'utilisateur
   Future<void> logout() async {
     try {
+      TFullScreenLoader.openLoading('Deconnexion', CustomImage.animation);
+
+      if (!await ConnectivityWrapper.instance.isConnected) {
+        TFullScreenLoader.stopLoading();
+        TLoaders.errorSnackBar(
+            title: 'Oh snap', message: "vous n'etes pas connecter a internet");
+
+        return;
+      }
+      ;
       await FirebaseAuth.instance?.signOut();
       //  await GoogleSignIn()!.signOut();
+      TFullScreenLoader.stopLoading();
       Get.offAll(() => const LoginScreen());
     } on FirebaseAuthException catch (e) {
       throw TFirebaseAuthException(e.code).message;
@@ -138,8 +179,6 @@ class AuthenticationRepository extends GetxController {
   }
 
   //connexion avec google
-
-  /*
 
   Future<UserCredential> signiWithGoole() async {
     try {
@@ -164,7 +203,6 @@ class AuthenticationRepository extends GetxController {
       throw 'Une erreur est survenue';
     }
   }
-  */
 
   Future<UserCredential> reAuthenticationWithEmailAndPassword(
       String email, String password) async {

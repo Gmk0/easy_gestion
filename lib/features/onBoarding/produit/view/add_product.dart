@@ -32,13 +32,13 @@ class AddProduct extends StatelessWidget {
                 validator: (value) =>
                     CustomValidator.validatorEmptytext('Produit label', value),
                 decoration: const InputDecoration(
-                    hintText: 'Produit', prefixIcon: Icon(Iconsax.card)),
+                    hintText: 'Produit', prefixIcon: Icon(Iconsax.box)),
               ),
               const SizedBox(
                 height: CustomSize.spaceBtwInputFields,
               ),
               DropdownButtonFormField(
-                  icon: Icon(Iconsax.card),
+                  icon: Icon(Iconsax.box),
                   items: [
                     DropdownMenuItem(
                       child: Text('Jus'),
@@ -47,7 +47,7 @@ class AddProduct extends StatelessWidget {
                     DropdownMenuItem(
                       child: Text('Eau'),
                       value: "eau",
-                    )
+                    ),
                   ],
                   onChanged: (val) {
                     controller.category.text = val!;
@@ -60,7 +60,7 @@ class AddProduct extends StatelessWidget {
                 validator: (value) =>
                     CustomValidator.validatorEmptytext('Quantite', value),
                 decoration: const InputDecoration(
-                    hintText: "Stock initial", prefixIcon: Icon(Iconsax.card)),
+                    hintText: "Stock initial", prefixIcon: Icon(Icons.label)),
               ),
               SizedBox(
                 height: CustomSize.spaceBtwItems,

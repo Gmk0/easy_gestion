@@ -44,8 +44,6 @@ class HomeController extends GetxController {
       final produitRepository = HistoryTransactionRepository.instance;
       final fetchedTransaction = await produitRepository.fetchAllTransactions();
 
-      print("feth transaction   ${fetchedTransaction}");
-
       if (fetchedTransaction != null) {
         lastTransaction.value =
             fetchedTransaction; // Mettre à jour la liste avec les produits récupérés

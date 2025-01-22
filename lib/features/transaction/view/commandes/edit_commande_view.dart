@@ -26,6 +26,7 @@ class _ReapprovisionnementEditState extends State<ReapprovisionnementEdit> {
     super.initState();
 
     controller = Get.put(CommandesController());
+    controller.initController(widget.commande);
   }
 
   Future<void> _pickDateTime(BuildContext context) async {
@@ -90,7 +91,7 @@ class _ReapprovisionnementEditState extends State<ReapprovisionnementEdit> {
               children: [
                 Obx(() {
                   return DropdownButtonFormField(
-                    value: controller.produitId,
+                    value: widget.commande.productId,
                     decoration: InputDecoration(
                       hintText: "Produit",
                       hintStyle: TextStyle(fontSize: 18),

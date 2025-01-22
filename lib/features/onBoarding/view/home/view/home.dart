@@ -20,8 +20,23 @@ import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    Get.lazyPut<HistoryTransactionRepository>(
+        () => HistoryTransactionRepository());
+
+    Get.lazyPut<UserRepository>(() => UserRepository());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,18 +73,10 @@ class HomeScreen extends StatelessWidget {
                 width: CustomSize.sm,
               ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'Welcom back',
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  Text("brigitte",
-                      style: TextStyle(
-                        fontSize: 12,
-                      ))
+                  Obx(() => Text(UserRepository.Instance.user.value.username,
+                      style: Theme.of(context).textTheme.titleMedium))
                 ],
               )
             ],
@@ -85,25 +92,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               //balance
 
-              StreamBuilder<double>(
-                stream: HistoryTransactionRepository.instance
-                    .getTotalAmountStream(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return BalanceCompteShimer(); // Ou n'importe quel widget de chargement
-                  }
-                  if (snapshot.hasError) {
-                    return Text('Erreur : ${snapshot.error}');
-                  }
-                  if (!snapshot.hasData) {
-                    return Text('Aucune donnée disponible');
-                  }
-
-                  return BalanceCompte(
-                    totalBalance: snapshot.data!,
-                  );
-                },
-              ),
+              BalanceCompte(),
 
               const SizedBox(
                 height: CustomSize.spaceBtwItems,
@@ -135,17 +124,20 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   BuildIconButton(
                     icon: Iconsax.document_download,
+                    iconSize: 35,
                     label: 'Ventes du jour',
                     onPressed: () => Get.to(() => VentesJour()),
                   ),
                   BuildIconButton(
                     icon: Iconsax.money_change,
-                    label: "Reapprovisionement",
+                    label: "Commandes",
+                    iconSize: 35,
                     onPressed: () => Get.to(() => Reapprovisionnement()),
                   ),
                   BuildIconButton(
                     icon: Iconsax.bank,
                     label: 'Depenses',
+                    iconSize: 35,
                     onPressed: () => Get.to(() => Depenses()),
                   ),
                 ],
@@ -154,8 +146,8 @@ class HomeScreen extends StatelessWidget {
                 height: CustomSize.spaceBtwSections,
               ),
               SectionHeading(
-                title: 'Dernier  transaction',
-                showActionButton: true,
+                title: 'Dernière transaction',
+                showActionButton: false,
                 onPressed: () {},
               ),
               const SizedBox(
@@ -181,6 +173,11 @@ class HomeScreen extends StatelessWidget {
                           .toList(),
                     ),
                   );
+                }
+
+                if (controller.lastTransaction.isEmpty) {
+                  return Center(
+                      child: Text("Aucune transaction pour l'instant"));
                 }
                 return Column(
                   children: controller.lastTransaction.value

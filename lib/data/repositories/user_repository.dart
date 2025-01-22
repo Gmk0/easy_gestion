@@ -14,6 +14,13 @@ class UserRepository extends GetxController {
   static UserRepository get Instance => Get.find();
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  Rx<UserModel> user = UserModel.empty().obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchUserDetails();
+  }
 
   Future<void> saveUserRecord(UserModel user) async {
     try {
@@ -33,14 +40,12 @@ class UserRepository extends GetxController {
   Future<void> saveUserRecordWithGoogle(UserCredential? userCredential) async {
     try {
       if (userCredential != null) {
-        final nameParts =
-            UserModel.nameParts(userCredential.user!.displayName ?? '');
         final userName =
-            UserModel.generateUsername(userCredential.user!.displayName ?? '');
+            userCredential.user!.displayName ?? userCredential.user!.email;
 
         final user = UserModel(
           id: userCredential.user!.uid,
-          username: userName,
+          username: userName!,
           email: userCredential.user!.email ?? '',
           phoneNumber: userCredential.user!.phoneNumber ?? '',
           profilePicture: userCredential.user!.photoURL ?? '',
@@ -53,16 +58,14 @@ class UserRepository extends GetxController {
     }
   }
 
-  Future<UserModel> fetchUserDetails() async {
+  Future<void> fetchUserDetails() async {
     try {
       final documentSnapshot = await _db
           .collection("Users")
           .doc(AuthenticationRepository.instance.authUser?.uid)
           .get();
       if (documentSnapshot.exists) {
-        return UserModel.fromSnapshot(documentSnapshot);
-      } else {
-        return UserModel.empty();
+        user.value = UserModel.fromSnapshot(documentSnapshot);
       }
     } on FirebaseException catch (e) {
       print('ici');

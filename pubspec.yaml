@@ -1,5 +1,5 @@
 name: easy_gestion
-description: "A new Flutter project."
+description: "Application de gestion."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -50,6 +50,8 @@ dependencies:
   easy_loading_button: ^0.3.2
   skeletonizer: ^1.4.3
   printing: ^5.13.4
+  connectivity_wrapper: ^1.1.4
+  google_sign_in: ^6.2.2
   
 
 dev_dependencies:

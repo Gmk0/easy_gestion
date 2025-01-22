@@ -1,6 +1,9 @@
+import 'package:easy_gestion/common/widgets/loader_class.dart';
 import 'package:easy_gestion/utils/constants/colors.dart';
 import 'package:easy_loading_button/easy_loading_button.dart';
 import 'package:flutter/material.dart';
+
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 
 class ButtonWithLoad extends StatelessWidget {
   const ButtonWithLoad({
@@ -34,7 +37,15 @@ class ButtonWithLoad extends StatelessWidget {
       borderRadius: 6.0,
       contentGap: 6.0,
       buttonColor: CustomColors.futaColor,
-      onPressed: () => controller(),
+      onPressed: () async {
+        if (await ConnectivityWrapper.instance.isConnected) {
+          controller();
+        } else {
+          TLoaders.errorSnackBar(
+              title: 'Oh snap',
+              message: "vous n'etes pas connecter a internet");
+        }
+      },
     );
   }
 }

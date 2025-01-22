@@ -15,7 +15,7 @@ class ListeTransaction extends StatefulWidget {
 }
 
 class _ListeTransactionState extends State<ListeTransaction> {
-  final transactionController = TransactionController.Instance;
+  final transactionController = Get.put(TransactionController());
 
   @override
   Widget build(BuildContext context) {

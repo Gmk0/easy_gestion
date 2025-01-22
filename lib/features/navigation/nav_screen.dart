@@ -16,9 +16,10 @@ class NavigationMenu extends StatelessWidget {
     return Scaffold(
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
       bottomNavigationBar: Obx(() => NavigationBar(
-              height: 80,
+              height: 60,
               elevation: 0,
-              backgroundColor: darkMode ? Colors.black : Colors.white,
+              backgroundColor:
+                  darkMode ? CustomColors.dark : CustomColors.light,
               indicatorColor: darkMode
                   ? CustomColors.white.withAlpha(2)
                   : CustomColors.black.withAlpha(1),
@@ -30,7 +31,7 @@ class NavigationMenu extends StatelessWidget {
                     icon: Icon(Iconsax.home), label: 'Accueil'),
                 NavigationDestination(
                   icon: Icon(Iconsax.card),
-                  label: 'Operation',
+                  label: 'Transaction',
                 ),
                 NavigationDestination(
                     icon: Icon(Iconsax.chart), label: 'Produit'),

@@ -25,28 +25,15 @@ class LoginProvider extends StatelessWidget {
               border: Border.all(color: CustomColors.grey),
               borderRadius: BorderRadius.circular(100)),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () => controller.googleSign(),
             icon: const Image(
               width: CustomSize.iconsMd,
               height: CustomSize.iconsMd,
-              image: AssetImage(CustomImage.facebook),
+              image: AssetImage(CustomImage.google),
             ),
           ),
         ),
         const SizedBox(width: CustomSize.spaceBtwItems),
-        Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: CustomColors.grey),
-              borderRadius: BorderRadius.circular(100)),
-          child: IconButton(
-            onPressed: () {},
-            icon: const Image(
-              width: CustomSize.iconsMd,
-              height: CustomSize.iconsMd,
-              image: AssetImage(CustomImage.facebook),
-            ),
-          ),
-        ),
       ],
     );
   }

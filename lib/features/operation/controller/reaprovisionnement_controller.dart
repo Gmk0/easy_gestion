@@ -94,10 +94,17 @@ class CommandesController extends GetxController {
 
       await produitController.fetchProduits();
 
+      if (Get.isRegistered<TransactionController>()) {
+        final transactionController = TransactionController.Instance;
+        transactionController.fetchAllCommandes();
+
+        // Le Controller est déjà enregistré
+        print("Le Controller est déjà créé.");
+      }
+
       clear();
 
       // await transactionRepo.getTotalAmount();
-      await transactionRepo.fetchAllCommmandes();
 
       //remove loader
 
@@ -139,9 +146,11 @@ class CommandesController extends GetxController {
       await transactionRepo.updateCommande(commande.id, data);
 
       produitRepository.updateProduitQuantity(produitId.text, qty);
+      final transactionController = TransactionController.Instance;
 
       await produitController.fetchProduits();
-      await transactionRepo.fetchAllCommmandes();
+
+      transactionController.fetchAllCommandes();
 
       clear();
 
@@ -171,7 +180,6 @@ class CommandesController extends GetxController {
 
       final produitRepository = ProduitRepository.Instance;
       final transactionRepo = HistoryTransactionRepository.instance;
-
       final transactionController = TransactionController.Instance;
 
       produitRepository.updateProduitQuantity(
@@ -179,7 +187,7 @@ class CommandesController extends GetxController {
 
       await transactionRepo.deleteCommande(commande.id);
 
-      await transactionController.fetchAllCommandes();
+      transactionController.fetchAllCommandes();
 
       //remove loader
 

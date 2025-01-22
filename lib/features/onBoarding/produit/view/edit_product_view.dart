@@ -82,7 +82,7 @@ class _EditProductViewState extends State<EditProductView> {
                 validator: (value) =>
                     CustomValidator.validatorEmptytext('Produit label', value),
                 decoration: const InputDecoration(
-                    hintText: 'Produit', prefixIcon: Icon(Iconsax.card)),
+                    hintText: 'Produit', prefixIcon: Icon(Icons.label)),
               ),
               const SizedBox(
                 height: CustomSize.spaceBtwInputFields,
@@ -110,7 +110,7 @@ class _EditProductViewState extends State<EditProductView> {
                 validator: (value) =>
                     CustomValidator.validatorEmptytext('Quantite', value),
                 decoration: const InputDecoration(
-                    hintText: "Stock initial", prefixIcon: Icon(Iconsax.card)),
+                    hintText: "Stock initial", prefixIcon: Icon(Icons.label)),
               ),
               SizedBox(
                 height: CustomSize.spaceBtwItems,

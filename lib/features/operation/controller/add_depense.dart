@@ -72,15 +72,17 @@ class AddDepensesController extends GetxController {
 
       final transactionRepo = HistoryTransactionRepository.instance;
 
-      final transactionController = TransactionController.Instance;
-
-      final homeController = HomeController.instance;
-
       await transactionRepo.addDepenses(transaction);
 
       // await transactionRepo.getTotalAmount();
 
-      transactionController.fetchAllDepenses();
+      if (Get.isRegistered<TransactionController>()) {
+        final transactionController = TransactionController.Instance;
+        transactionController.fetchAllDepenses();
+
+        // Le Controller est déjà enregistré
+        print("Le Controller est déjà créé.");
+      }
 
       //remove loader
 

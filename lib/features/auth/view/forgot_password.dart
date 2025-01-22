@@ -1,3 +1,4 @@
+import 'package:easy_gestion/features/auth/controller/forgot_password_controller.dart';
 import 'package:easy_gestion/utils/export.dart';
 import 'package:easy_gestion/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +10,14 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final controller = Get.put(ForgotPasswordController());
+    final controller = Get.put(ForgotPasswordController());
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(CustomSize.defaultSpace),
           child: Form(
-            // key: controller.formKey,
+            key: controller.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -33,7 +34,7 @@ class ForgetPassword extends StatelessWidget {
                 ),
                 const SizedBox(height: CustomSize.spaceBtwSections * 2),
                 TextFormField(
-                  // controller: controller.email,
+                  controller: controller.email,
                   validator: (value) => CustomValidator.validateEmail(value),
                   decoration: const InputDecoration(
                       labelText: CustomText.email,
@@ -43,7 +44,7 @@ class ForgetPassword extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => controller.sendPasswordLink(),
                     child: const Text(CustomText.submit),
                   ),
                 ),

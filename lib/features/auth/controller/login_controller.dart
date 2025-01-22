@@ -54,14 +54,11 @@ class LoginController extends GetxController {
     }
   }
 
-/*
   Future<void> googleSign() async {
     try {
       TFullScreenLoader.openLoading('logging you in', CustomImage.animation);
 
-     // final isConnected = await NetworkManager.instance.isConnected();
-
-    
+      // final isConnected = await NetworkManager.instance.isConnected();
 
       final userCredentials =
           await AuthenticationRepository.instance.signiWithGoole();
@@ -77,5 +74,5 @@ class LoginController extends GetxController {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'oH Snap', message: e.toString());
     }
-  } */
+  }
 }

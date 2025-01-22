@@ -8,6 +8,7 @@ import 'package:easy_gestion/data/repositories/hitstory_transaction_repository.d
 
 import 'package:easy_gestion/features/operation/view/depenses.dart';
 import 'package:easy_gestion/features/transaction/controller/transaction_controller.dart';
+import 'package:easy_gestion/features/transaction/view/depenses/edit_depense_view.dart';
 import 'package:easy_gestion/model/depense_model.dart';
 import 'package:easy_gestion/utils/constants/sizes.dart';
 import 'package:easy_gestion/utils/helpers/helper_function.dart';
@@ -254,36 +255,39 @@ class _DepesenseTransactionState extends State<DepesenseTransaction> {
                   itemBuilder: (_, index) {
                     final depense =
                         widget.transactionController.depensesList[index];
-                    return ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        backgroundColor:
-                            CustomHelperFunctions.getColor('green'),
-                        child: Text(
-                          depense.title[0].toUpperCase(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .apply(color: Colors.white),
-                        ), // Utiliser la première lettre du nom du produit
-                      ),
-                      title: Text(
-                        depense.title,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            DateFormat('dd-MM-yyyy').format(depense.date),
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                        ],
-                      ),
-                      trailing: Text(
-                        CustomHelperFunctions.currencyFormat
-                            .format(depense.totalAmount),
-                        style: Theme.of(context).textTheme.bodyLarge,
+                    return GestureDetector(
+                      onTap: () => Get.to(() => DepensesEdit(depense: depense)),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          radius: 30,
+                          backgroundColor:
+                              CustomHelperFunctions.getColor('green'),
+                          child: Text(
+                            depense.title[0].toUpperCase(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .apply(color: Colors.white),
+                          ), // Utiliser la première lettre du nom du produit
+                        ),
+                        title: Text(
+                          depense.title,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              DateFormat('dd-MM-yyyy').format(depense.date),
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                          ],
+                        ),
+                        trailing: Text(
+                          CustomHelperFunctions.currencyFormat
+                              .format(depense.totalAmount),
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       ),
                     );
                   },

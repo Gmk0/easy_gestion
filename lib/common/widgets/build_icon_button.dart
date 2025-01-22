@@ -1,4 +1,5 @@
 import 'package:easy_gestion/utils/constants/colors.dart';
+import 'package:easy_gestion/utils/export.dart';
 import 'package:flutter/material.dart';
 
 class BuildIconButton extends StatelessWidget {
@@ -18,6 +19,7 @@ class BuildIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = CustomHelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: onPressed,
       child: Column(
@@ -26,7 +28,7 @@ class BuildIconButton extends StatelessWidget {
           Container(
             //padding: ,
             decoration: BoxDecoration(
-              color: Colors.grey[300],
+              color: dark ? Colors.grey[900] : Colors.grey[200],
               borderRadius: BorderRadius.circular(borderCircular),
             ),
             child: IconButton(

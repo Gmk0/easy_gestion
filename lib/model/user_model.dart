@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class UserModel {
   final String id;
 
-  final String username;
-  final String email;
+  String username;
+  String email;
   String phoneNumber;
   String profilePicture;
 
@@ -58,17 +58,6 @@ class UserModel {
       phoneNumber: json['phoneNumber'],
       profilePicture: json['profilePicture'],
     );
-  }
-
-  static List<String> nameParts(fullName) => fullName.split(" ");
-
-  static String generateUsername(fullName) {
-    List<String> nameParts = fullName.split(" ");
-    String firtName = nameParts[0].toLowerCase();
-    String lastName = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
-    String camelCaseUsername = '$firtName$lastName';
-    String usernameWithPrefix = 'cwt_$camelCaseUsername';
-    return usernameWithPrefix;
   }
 
 // static function pour creer un model vide

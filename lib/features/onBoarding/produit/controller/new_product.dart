@@ -30,10 +30,11 @@ class AddProductController extends GetxController {
       //final isConnected = await NetworkManager.instance.isConnected();
 
       if (!productForm.currentState!.validate()) {
-        isLoading.value = false;
         TLoaders.warningSnackBar(
-            title: 'Accept privacy policy',
-            message: 'In order to create acount');
+          title: 'Remplir les champs',
+          message: 'Veuillez remplir tous les champs.',
+        );
+
         return;
       }
 
@@ -60,7 +61,9 @@ class AddProductController extends GetxController {
       // TFullScreenLoader.stopLoading();
 
       TLoaders.successSnackBar(
-          title: 'Congratulations!', message: 'Le produit a ete bien creé');
+        title: 'Félicitations !',
+        message: 'Le produit a été créé avec succès.',
+      );
     } catch (e) {
       TLoaders.errorSnackBar(title: 'Oh snap', message: e.toString());
     } finally {
