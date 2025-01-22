@@ -28,11 +28,13 @@ class ProfilController extends GetxController {
 
       var data = {
         "username": userName.text,
+        "email": email.text,
       };
 
       await UserRepository.Instance.updateSingleField(data);
 
       UserRepository.Instance.user.value.username = userName.text;
+      // UserRepository.Instance.user.value.email = email.text;
 
       TLoaders.successSnackBar(
           title: 'Success', message: "Modification reussie");

@@ -38,7 +38,7 @@ class ForgotPasswordController extends GetxController {
       TFullScreenLoader.stopLoading();
 
       TLoaders.successSnackBar(
-          title: 'email sent', message: 'l email a ete bien sent');
+          title: 'email sent', message: "l'email a éte bien envoyer");
 
       Get.to(() => ResetPassword(email: email.text.trim()));
     } catch (e) {
@@ -48,7 +48,7 @@ class ForgotPasswordController extends GetxController {
 
   resendPasswordLink(String email) async {
     try {
-      TFullScreenLoader.openLoading('login', CustomImage.animation);
+      TFullScreenLoader.openLoading('Envoi du message', CustomImage.animation);
 
       final isConnected = await ConnectivityWrapper.instance.isConnected;
 
@@ -65,7 +65,7 @@ class ForgotPasswordController extends GetxController {
       TFullScreenLoader.stopLoading();
 
       TLoaders.successSnackBar(
-          title: 'email sent', message: 'l email a ete bien sent');
+          title: 'email sent', message: "l'email a éte bien envoyer");
     } catch (e) {
       TLoaders.errorSnackBar(title: 'oh snap', message: e.toString());
     }

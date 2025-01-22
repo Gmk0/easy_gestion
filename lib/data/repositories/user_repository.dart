@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_gestion/data/authentification.dart';
+import 'package:easy_gestion/features/onBoarding/view/on_boarding_screen.dart';
 import 'package:easy_gestion/model/user_model.dart';
 import 'package:easy_gestion/utils/loaders/firebase_exception.dart';
 
@@ -69,7 +70,10 @@ class UserRepository extends GetxController {
       }
     } on FirebaseException catch (e) {
       print('ici');
-      throw TFirebaseException(e.code).message;
+
+      Get.offAll(() => OnboardingScreen());
+
+      // throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
       throw TFormatException;
     } on TPlatformException catch (e) {
