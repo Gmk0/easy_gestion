@@ -31,7 +31,7 @@ class EditProductController extends GetxController {
     try {
       isLoading.value = true;
       TFullScreenLoader.openLoading(
-          'we are proccessiong your informatio', CustomImage.animation);
+          'Modification en cours', CustomImage.animation);
 
       //final isConnected = await NetworkManager.instance.isConnected();
 
@@ -39,8 +39,8 @@ class EditProductController extends GetxController {
         TFullScreenLoader.stopLoading();
         isLoading.value = false;
         TLoaders.warningSnackBar(
-            title: 'Accept privacy policy',
-            message: 'In order to create acount');
+            title: 'Remplir les champs',
+            message: 'Veuillez remplir tous les champs.');
         return;
       }
 

@@ -1,3 +1,4 @@
+import 'package:easy_gestion/data/repositories/user_repository.dart';
 import 'package:easy_gestion/model/depense_model.dart';
 import 'package:easy_gestion/model/reaprovisionement_model.dart';
 import 'package:easy_gestion/model/transaction_model.dart';
@@ -34,7 +35,7 @@ Future<Uint8List> generatePdf(List<ProductTransactionModel> ventes) async {
               ),
             ),
             pw.Text(
-              'Client Brigitte',
+              'Client ${UserRepository.Instance.user.value.username}',
               style: pw.TextStyle(
                 fontSize: 10,
                 fontWeight: pw.FontWeight.bold,
@@ -108,7 +109,7 @@ Future<Uint8List> generatePdfCommandes(
               ),
             ),
             pw.Text(
-              'Client Brigitte',
+              'Client ${UserRepository.Instance.user.value.username}',
               style: pw.TextStyle(
                 fontSize: 10,
                 fontWeight: pw.FontWeight.bold,
@@ -182,7 +183,7 @@ Future<Uint8List> generateDepensePdf(List<DepenseModel> depenses) async {
               ),
             ),
             pw.Text(
-              'Client Brigitte',
+              'Client ${UserRepository.Instance.user.value.username}',
               style: pw.TextStyle(
                 fontSize: 10,
                 fontWeight: pw.FontWeight.bold,

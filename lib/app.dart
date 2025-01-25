@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         // locale: DevicePreview.locale(context),
         locale: const Locale('fr', 'FR'), // Locale par défaut : Français
-        fallbackLocale: const Locale('en', 'US'),
+        fallbackLocale: const Locale('fr', 'FR'),
         builder: DevicePreview.appBuilder,
         themeMode: themeController.themeMode.value,
         theme: AppTheme.lightTheme,

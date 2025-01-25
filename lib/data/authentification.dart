@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:easy_gestion/common/widgets/loader_class.dart';
+import 'package:easy_gestion/data/repositories/user_repository.dart';
 import 'package:easy_gestion/features/auth/view/login_screen.dart';
 import 'package:easy_gestion/features/navigation/nav_screen.dart';
 import 'package:easy_gestion/features/onBoarding/view/on_boarding_screen.dart';
@@ -228,10 +229,28 @@ class AuthenticationRepository extends GetxController {
   // Déconnexion de l'utilisateur
   Future<void> deleteAccount() async {
     try {
-      // await UserRepository.Instance.removeRecord(_auth.currentUser!.uid);
+      TFullScreenLoader.openLoading('Suppression', CustomImage.animation);
+
+      if (!await ConnectivityWrapper.instance.isConnected) {
+        TFullScreenLoader.stopLoading();
+        TLoaders.errorSnackBar(
+            title: 'Oh snap', message: "vous n'etes pas connecter a internet");
+
+        return;
+      }
+
+      await UserRepository.Instance.removeRecord(_auth.currentUser!.uid);
       await _auth.currentUser?.delete();
+
+      TFullScreenLoader.stopLoading();
+      //AuthenticationRepository.instance.screenRedirect();
+
+      Get.offAll(() => OnboardingScreen());
     } on FirebaseAuthException catch (e) {
-      throw TFirebaseAuthException(e.code).message;
+      print(e);
+      TLoaders.errorSnackBar(title: e.message);
+
+      //throw TFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw TFirebaseAuthException(e.code).message;
     } on FormatException catch (e) {
@@ -240,6 +259,8 @@ class AuthenticationRepository extends GetxController {
       throw TPlatformException;
     } catch (e) {
       throw 'Une erreur est survenue';
+    } finally {
+      TFullScreenLoader.stopLoading();
     }
   }
 

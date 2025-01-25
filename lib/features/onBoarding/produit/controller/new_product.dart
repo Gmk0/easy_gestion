@@ -54,7 +54,9 @@ class AddProductController extends GetxController {
       final produitRepository = ProduitRepository.Instance;
       await produitRepository.saveUserProduit(newUser, user!.uid);
 
-      await ProduitController.Instance.fetchProduits();
+      await ProduitController.Instance.fetchProduits().then((value) {
+        clear();
+      });
 
       //remove loader
 
@@ -69,5 +71,11 @@ class AddProductController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  void clear() {
+    label.text = "";
+    category.text = "";
+    quantity.text = "";
   }
 }

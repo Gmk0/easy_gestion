@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 import 'package:easy_gestion/app.dart';
 import 'package:easy_gestion/data/authentification.dart';
@@ -20,7 +21,14 @@ Future<void> main() async {
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  ).then((FirebaseApp value) => Get.put(AuthenticationRepository()));
+  ).then(
+    (FirebaseApp value) => Get.put(AuthenticationRepository()),
+  );
+
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
+    cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+  );
 
   runApp(const MyApp());
   /*

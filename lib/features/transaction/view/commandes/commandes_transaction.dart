@@ -7,6 +7,7 @@ import 'package:easy_gestion/data/data.dart';
 import 'package:easy_gestion/data/repositories/hitstory_transaction_repository.dart';
 
 import 'package:easy_gestion/features/operation/view/depenses.dart';
+import 'package:easy_gestion/features/operation/view/reapprovisionnement.dart';
 import 'package:easy_gestion/features/transaction/controller/transaction_controller.dart';
 import 'package:easy_gestion/features/transaction/view/commandes/edit_commande_view.dart';
 import 'package:easy_gestion/model/reaprovisionement_model.dart';
@@ -126,9 +127,7 @@ class _CommandesTransactionState extends State<CommandesTransaction> {
                       BuildIconButton(
                         icon: Iconsax.filter,
                         iconSize: 24,
-                        label: _isFilterActive
-                            ? 'Filtre actif'
-                            : 'Filtres par date',
+                        label: _isFilterActive ? 'Filtre actif' : 'Filtre',
                         onPressed: () async {
                           final DateTimeRange? picked =
                               await showDateRangePicker(
@@ -154,6 +153,12 @@ class _CommandesTransactionState extends State<CommandesTransaction> {
                           onPressed: () {
                             printPdf(widget.commandeController.commandeList);
                           }),
+                      BuildIconButton(
+                        icon: Iconsax.money_change,
+                        label: "Commandes",
+                        iconSize: 24,
+                        onPressed: () => Get.to(() => Reapprovisionnement()),
+                      ),
                     ],
                   ),
                   AnimatedOpacity(
@@ -246,7 +251,7 @@ class _CommandesTransactionState extends State<CommandesTransaction> {
                   );
                 }
                 if (widget.commandeController.commandeList.isEmpty) {
-                  return Center(child: Text('Aucun produit disponible'));
+                  return Center(child: Text('Aucune transaction disponible'));
                 }
 
                 return ListView.separated(

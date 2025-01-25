@@ -7,6 +7,7 @@ import 'package:easy_gestion/data/authentification.dart';
 import 'package:easy_gestion/data/data.dart';
 import 'package:easy_gestion/data/repositories/hitstory_transaction_repository.dart';
 import 'package:easy_gestion/data/repositories/user_repository.dart';
+import 'package:easy_gestion/features/onBoarding/produit/controller/get_product_controller.dart';
 import 'package:easy_gestion/features/onBoarding/view/home/controller/home_controller.dart';
 import 'package:easy_gestion/features/operation/view/depenses.dart';
 import 'package:easy_gestion/features/operation/view/reapprovisionnement.dart';
@@ -36,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         () => HistoryTransactionRepository());
 
     Get.lazyPut<UserRepository>(() => UserRepository());
+    Get.lazyPut<ProduitController>(() => ProduitController());
   }
 
   @override

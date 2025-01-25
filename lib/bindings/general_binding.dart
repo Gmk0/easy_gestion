@@ -13,7 +13,6 @@ class GeneralBindings extends Bindings {
     //Get.put(ProduitRepository());
 
     //Get.put(ProduitController());
-    Get.lazyPut<ProduitController>(() => ProduitController());
 
     //Get.put(TransactionController());
   }

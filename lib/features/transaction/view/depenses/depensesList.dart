@@ -126,9 +126,7 @@ class _DepesenseTransactionState extends State<DepesenseTransaction> {
                       BuildIconButton(
                         icon: Iconsax.filter,
                         iconSize: 24,
-                        label: _isFilterActive
-                            ? 'Filtre actif'
-                            : 'Filtres par date',
+                        label: _isFilterActive ? 'Filtre actif' : 'Filtre',
                         onPressed: () async {
                           final DateTimeRange? picked =
                               await showDateRangePicker(
@@ -154,6 +152,12 @@ class _DepesenseTransactionState extends State<DepesenseTransaction> {
                           onPressed: () {
                             printPdf(widget.transactionController.depensesList);
                           }),
+                      BuildIconButton(
+                        icon: Iconsax.bank,
+                        label: 'Depenses',
+                        iconSize: 24,
+                        onPressed: () => Get.to(() => Depenses()),
+                      ),
                     ],
                   ),
                   AnimatedOpacity(
@@ -246,7 +250,7 @@ class _DepesenseTransactionState extends State<DepesenseTransaction> {
                   );
                 }
                 if (widget.transactionController.ventes.isEmpty) {
-                  return Center(child: Text('Aucun produit disponible'));
+                  return Center(child: Text('Aucune transaction disponible'));
                 }
 
                 return ListView.separated(

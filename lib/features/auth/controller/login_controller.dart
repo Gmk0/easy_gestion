@@ -56,7 +56,7 @@ class LoginController extends GetxController {
 
   Future<void> googleSign() async {
     try {
-      TFullScreenLoader.openLoading('logging you in', CustomImage.animation);
+      TFullScreenLoader.openLoading('connexion', CustomImage.animation);
 
       // final isConnected = await NetworkManager.instance.isConnected();
 

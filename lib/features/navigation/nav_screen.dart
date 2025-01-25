@@ -16,7 +16,7 @@ class NavigationMenu extends StatelessWidget {
     return Scaffold(
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
       bottomNavigationBar: Obx(() => NavigationBar(
-              height: 60,
+              height: 70,
               elevation: 0,
               backgroundColor:
                   darkMode ? CustomColors.dark : CustomColors.light,

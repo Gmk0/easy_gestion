@@ -7,6 +7,7 @@ import 'package:easy_gestion/data/data.dart';
 import 'package:easy_gestion/data/repositories/hitstory_transaction_repository.dart';
 
 import 'package:easy_gestion/features/operation/view/depenses.dart';
+import 'package:easy_gestion/features/operation/view/ventes_jour.dart';
 import 'package:easy_gestion/features/transaction/controller/transaction_controller.dart';
 import 'package:easy_gestion/features/transaction/view/ventes/edit_ventes_transaction.dart';
 import 'package:easy_gestion/model/transaction_model.dart';
@@ -125,9 +126,7 @@ class _VentesTransacState extends State<VentesTransac> {
                       BuildIconButton(
                         icon: Iconsax.filter,
                         iconSize: 24,
-                        label: _isFilterActive
-                            ? 'Filtre actif'
-                            : 'Filtres par date',
+                        label: _isFilterActive ? 'Filtre actif' : 'Filtre',
                         onPressed: () async {
                           final DateTimeRange? picked =
                               await showDateRangePicker(
@@ -153,6 +152,12 @@ class _VentesTransacState extends State<VentesTransac> {
                           onPressed: () {
                             printPdf(widget.venteController.ventes);
                           }),
+                      BuildIconButton(
+                        icon: Iconsax.document_download,
+                        iconSize: 24,
+                        label: 'Ventes',
+                        onPressed: () => Get.to(() => VentesJour()),
+                      ),
                     ],
                   ),
                   AnimatedOpacity(
@@ -245,7 +250,7 @@ class _VentesTransacState extends State<VentesTransac> {
                   );
                 }
                 if (widget.venteController.ventes.isEmpty) {
-                  return Center(child: Text('Aucun produit disponible'));
+                  return Center(child: Text('Aucune transaction disponible'));
                 }
 
                 return ListView.separated(

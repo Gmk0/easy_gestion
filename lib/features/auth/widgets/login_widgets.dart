@@ -109,7 +109,7 @@ class LoginForm extends StatelessWidget {
               width: double.infinity,
               child: ButtonWithLoad(
                 controller: () => controller.signIn(),
-                label: 'Login',
+                label: 'Connexion',
               ),
             ),
             const SizedBox(

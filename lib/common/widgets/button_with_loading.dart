@@ -39,7 +39,7 @@ class ButtonWithLoad extends StatelessWidget {
       buttonColor: CustomColors.futaColor,
       onPressed: () async {
         if (await ConnectivityWrapper.instance.isConnected) {
-          controller();
+          await controller();
         } else {
           TLoaders.errorSnackBar(
               title: 'Oh snap',

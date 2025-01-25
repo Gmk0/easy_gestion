@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_gestion/utils/constants/image_strings.dart';
 import 'package:easy_gestion/utils/constants/sizes.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
   int _currentPage = 0;
+
+  final storage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -32,23 +35,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               OnboardingPage(
                 image: CustomImage
                     .imageOnboarding2[0], // Replace with your image link
-                title: 'Paiement le plus rapide en RDC',
+                title: 'Simplifiez la gestion de vos activités',
                 description:
-                    'Intégrez plusieurs méthodes de paiement pour vous aider à accélérer le processus',
+                    'Organisez vos tâches en toute simplicité grâce à une interface claire et intuitive.',
               ),
               OnboardingPage(
                 image: CustomImage
                     .imageOnboarding2[0], // Replace with your image link
-                title: 'La plateforme la plus sécurisée pour le client',
+                title: 'Une gestion sécurisée et efficace',
                 description:
-                    'Empreinte digitale intégrée, reconnaissance faciale et bien plus encore, pour une sécurité totale',
+                    'Protégez vos données et accédez rapidement à vos informations importantes.',
               ),
               OnboardingPage(
                 image: CustomImage
                     .imageOnboarding2[0], // Replace with your image link
-                title: 'Payer pour tout est simple et pratique',
+                title: 'Gérez tout en un seul endroit',
                 description:
-                    'Empreinte digitale intégrée, reconnaissance faciale et bien plus encore, pour une sécurité totale',
+                    'Bénéficiez d\'une solution complète pour centraliser et optimiser vos opérations.',
               ),
             ],
           ),
@@ -82,6 +85,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   curve: Curves.ease,
                 );
               } else {
+                storage.write('isFirsTime', false);
                 Get.offAll(LoginScreen());
                 // Navigate to the next screen
               }

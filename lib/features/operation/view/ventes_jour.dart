@@ -33,7 +33,7 @@ class _VentesJourState extends State<VentesJour> {
 
   void calculateTotal() {
     double prix = double.tryParse(controller.priceVentes.text) ?? 0.0;
-    int quantite = int.tryParse(controller.quantity.text) ?? 0;
+    double quantite = double.tryParse(controller.quantity.text) ?? 0;
     double total = prix * quantite;
     controller.totalVentes.text =
         total.toStringAsFixed(2); // Format à deux décimales

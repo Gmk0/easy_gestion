@@ -37,6 +37,16 @@ class SettingsPage extends StatelessWidget {
             action: () => Get.to(() => HelpPage()),
           ),
           const Divider(),
+          ListSettings(
+            label: 'Supprimer le compte',
+            icon: Icons.help,
+            action: () async {
+              await AuthenticationRepository.instance.deleteAccount();
+
+              // Logic for logout
+            },
+          ),
+          const Divider(),
           ListTile(
             title: const Text('Déconnexion'),
             leading: const Icon(Icons.logout),

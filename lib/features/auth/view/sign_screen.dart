@@ -24,7 +24,7 @@ class SignUpScreen extends StatelessWidget {
                 height: CustomSize.spaceBtwSections,
               ),
               const FormDivider(
-                dividerText: 'or Sign up ',
+                dividerText: 'ou continuer avec ',
               ),
               const SizedBox(
                 height: CustomSize.spaceBtwSections,
